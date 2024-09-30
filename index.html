@@ -28,7 +28,7 @@
 	    <meta name="google-site-verification" content="CeBa50H0CJoDf85vK9KrCwXnKuYMja8Dn9kIkpLAlok" />   
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; object-src 'none'; style-src 'self' 'unsafe-inline';">
+	    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'nonce-<?= $nonce ?>' https://www.googletagmanager.com; style-src 'self' 'nonce-<?= $nonce ?>'; object-src 'none';">
 
    	 
     	 
