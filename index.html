@@ -47,17 +47,32 @@
 		<!-- JSON-LD structured data -->
 			<script type="application/ld+json">
 				{
-				  "@context": "http://schema.org",
-				  "@type": "Person",
-				  "name": "Aryan Aryal",
+				  "@context": "https://schema.org",
+				  "@type": "WebSite",
+				  "name": "arisksec",
 				  "url": "https://www.aryanaryal.com.np",
+				  "description": "Official website of Aryan 'Arisksec' Aryal.",
+				  "publisher": {
+				    "@type": "Organization",
+				    "name": "Aryan Aryal",
+				    "url": "https://www.aryanaryal.com.np",
+				    "logo": {
+				      "@type": "ImageObject",
+				      "url": "https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/black-logo.png"
+				    }
+				  },
+				  "potentialAction": {
+				    "@type": "SearchAction",
+				    "target": "https://www.aryanaryal.com.np/?s={search_term_string}",
+				    "query-input": "required name=search_term_string"
+				  },
 				  "sameAs": [
 				    "https://www.twitter.com/arisksec/",
 				    "https://blog.aryanaryal.com.np/",
 				    "https://github.com/arisksec/"
 				  ]
 				}
-			</script>
+</script>
 
 	
 	</head>
