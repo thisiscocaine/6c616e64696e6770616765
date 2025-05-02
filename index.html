@@ -1,5 +1,3 @@
-
-	
 <script type="text/javascript">
         var gk_isXlsx = false;
         var gk_xlsxFileLookup = {};
@@ -39,96 +37,406 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script>
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Terminal</title>
+    <style>
+        :root {
+            --background: #000000;
+            --text: #FFFFFF;
+            --prompt: #00FF00;
+            --accent: #FF0000;
+            --header: #D3D3D3;
+        }
+
+        body {
+            background: linear-gradient(135deg, #3b5998 0%, #8e44ad 100%);
+            animation: appleGradient 15s ease infinite;
+            color: var(--text);
+            font-family: 'Menlo', 'SF Mono', 'Courier New', monospace;
+            height: 100vh;
+            margin: 0;
+            padding: 15px;
+            min-height: 99%;
+            width: 100%;
+            overflow: auto;
+            position: relative;
+        }
+
+        @keyframes appleGradient {
+            0% { background: linear-gradient(135deg, #3b5998 0%, #8e44ad 100%); }
+            33% { background: linear-gradient(135deg, #8e44ad 0%, #ff6f91 100%); }
+            66% { background: linear-gradient(135deg, #ff6f91 0%, #3b5998 100%); }
+            100% { background: linear-gradient(135deg, #3b5998 0%, #8e44ad 100%); }
+        }
+
+        ::selection {
+            color: var(--background);
+            background-color: var(--text);
+        }
+        ::-moz-selection {
+            color: var(--background);
+            background-color: var(--text);
+        }
+
+        .terminal {
+            width: 80%;
+            max-width: 900px;
+            height: 500px;
+            background: var(--background);
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 50px;
+            left: 50px;
+            z-index: 1;
+        }
+
+        .terminal.minimized .terminal-body {
+            display: none;
+        }
+
+        .terminal.maximized {
+            width: calc(100% - 30px);
+            height: calc(100% - 30px);
+            max-width: none;
+            top: 15px;
+            left: 15px;
+        }
 
 
 
-<!DOCTYPE html>
-	<html>
-  	<head>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-6TKQ1L43EL"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-		
-		  gtag('config', 'G-6TKQ1L43EL');
-		</script>
-
-	 <title> arisksec </title>
-	    <meta name="description" content=" This is the official website of Aryan 'arisksec' Aryal." />
-	    <link rel="canonical" href="https://www.aryanaryal.com.np/">
-	    <meta name='robots' content='max-image-preview:large' />
-	    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
-	    <link rel="shortcut icon" href="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/favicon.png" type="image/x-icon">
-	
-	
-	    <meta property="og:type" content="website" />
-	    <meta property="og:site_name" content="arisksec" />
-	    <meta property="og:title" content="arisksec" />
-	    <meta property="og:description" content="This is the official website of Aryan 'arisksec' Aryal." />
-	    <meta property="og:image" content="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/black-logo.png" />
-	    <meta property="og:url" content="https://www.aryanaryal.com.np/" />
-	    <meta name="google-site-verification" content="CeBa50H0CJoDf85vK9KrCwXnKuYMja8Dn9kIkpLAlok" />   
-	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-	    <script nonce="serverGeneratedNonce">console.log('Secure script execution');</script>	  
- 	    	 
-    	 <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/637373/7374796c65.css" />
-    	 <link rel="icon" type="image/x-icon" href="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/favicon.png" />
-  	 
-	<!-- Google Tag Manager -->
-		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-5XL9QV7R');</script>
-	<!-- End Google Tag Manager -->
 
 
-		<!-- JSON-LD structured data -->
-			<script type="application/ld+json">
-				{
-				  "@context": "https://schema.org",
-				  "@type": "WebSite",
-				  "name": "arisksec",
-				  "url": "https://www.aryanaryal.com.np",
-				  "description": "Official website of Aryan 'arisksec' Aryal.",
-				  "publisher": {
-				    "@type": "Organization",
-				    "name": "Aryan Aryal",
-				    "url": "https://www.aryanaryal.com.np",
-				    "logo": {
-				      "@type": "ImageObject",
-				      "url": "https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/black-logo.png"
-				    }
-				  },
-				  "potentialAction": {
-				    "@type": "SearchAction",
-				    "target": "https://www.aryanaryal.com.np/?s={search_term_string}",
-				    "query-input": "required name=search_term_string"
-				  },
-				  "sameAs": [
-				    "https://www.twitter.com/arisksec/",
-				    "https://blog.aryanaryal.com.np/",
-				    "https://github.com/arisksec/"
-				  ]
-				}
-</script>
 
-	
-	</head>
 
-  	<body>
 
-		<!-- Google Tag Manager (noscript) -->
-			<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5XL9QV7R"
-			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->
 
-    		
+
+
+        .terminal-header {
+            background: var(--header);
+            padding: 6px 12px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #B0B0B0;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+            cursor: move;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 6px;
+        }
+
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .button-close { background: #FF5F56; }
+        .button-minimize { background: #FFBD2E; }
+        .button-maximize { background: #27C93F; }
+
+        .terminal-title {
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #333333;
+            font-weight: bold;
+        }
+
+        .terminal-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+
+        .prompt-line {
+            display: flex;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .prompt-user {
+            color: var(--prompt);
+            margin-right: 5px;
+            font-weight: bold;
+        }
+
+        .prompt-input {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-family: inherit;
+            font-size: inherit;
+            flex: 1;
+            outline: none;
+            caret-color: var(--accent);
+        }
+
+        .command-output {
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: #1A1A1A;
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: #555555;
+            border-radius: 4px;
+        }
+
+        .hidden-input {
+            opacity: 0;
+            position: absolute;
+            left: -9999px;
+            width: 100%;
+            height: 1.2em;
+            caret-color: var(--accent);
+            background: transparent;
+            border: none;
+            color: transparent;
+            resize: none;
+            font: inherit;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+
+
+
+	.cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: var(--accent);
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+}
+
+.cursor-active {
+    background: var(--accent);
+    opacity: 1;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+
+        .typer {
+            display: inline-block;
+            min-width: 10%;
+            pointer-events: none;
+        }
+
+        .liner {
+            margin-bottom: 10px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        b {
+            font-weight: bold;
+            text-decoration: underline;
+            color: var(--text);
+        }
+
+        .cursor {
+            color: var(--accent);
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .liner.password::before {
+            content: "Password: ";
+            color: var(--accent);
+        }
+
+        @keyframes show {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        p {
+            display: block;
+            line-height: 1.3em;
+            margin: 0;
+            overflow: hidden;
+            white-space: normal;
+            letter-spacing: 0.05em;
+            animation: typing 0.5s steps(30, end);
+        }
+
+        .no-animation {
+            animation: none;
+        }
+
+        .margin {
+            margin-left: 20px;
+        }
+
+        .index {
+            color: #00FF00;
+        }
+
+        .color2 {
+            color: #00FFFF;
+        }
+
+        .command {
+            color: #00FFFF;
+        }
+
+        .error {
+            color: var(--accent);
+        }
+
+        .white {
+            color: var(--text);
+        }
+
+        .inherit, a {
+            color: #87CEEB;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            background: var(--accent);
+            color: var(--background);
+        }
+
+        a:focus {
+            outline: 0;
+        }
+
+        .banner-logo {
+            display: block;
+            margin: 0 auto 15px auto;
+            width: 100px;
+            height: auto;
+        }
+
+        /* Enhanced Responsive Media Queries */
+        @media (min-width: 3840px) {
+            .terminal {
+                max-width: 1200px;
+                height: 700px;
+                font-size: 1.2rem;
+            }
+            .terminal-header { padding: 10px 18px; }
+            .terminal-title { font-size: 1.1rem; }
+            .terminal-button { width: 14px; height: 14px; }
+            .terminal-body { padding: 20px; }
+            .prompt-user, .prompt-input, p { font-size: 1.2rem; }
+            .hidden-input { height: 1.5em; }
+            .banner-logo { width: 150px; }
+            .command-output { line-height: 1.5; }
+        }
+
+        @media (max-width: 1024px) {
+            .terminal {
+                width: 85%;
+                height: 85vh;
+                min-height: 450px;
+            }
+            .terminal-header { padding: 6px 12px; }
+            .terminal-title { font-size: 0.85rem; }
+            .terminal-button { width: 11px; height: 11px; }
+            .terminal-body { padding: 12px; font-size: 0.95rem; }
+            .prompt-user, .prompt-input, p { font-size: 0.95rem; }
+            .hidden-input { height: 1.1em; }
+            .banner-logo { width: 90px; }
+            .command-output { line-height: 1.4; }
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .terminal {
+                width: 90%;
+                max-width: 100%;
+                height: 80vh;
+                min-height: 400px;
+            }
+            .terminal-header { padding: 5px 10px; }
+            .terminal-title { font-size: 0.8rem; }
+            .terminal-button { width: 10px; height: 10px; }
+            .terminal-body { padding: 10px; font-size: 0.9rem; }
+            .prompt-user, .prompt-input, p { font-size: 0.9rem; }
+            .hidden-input { height: 1em; }
+            .banner-logo { width: 80px; }
+            .command-output { line-height: 1.3; }
+            .terminal-body::-webkit-scrollbar { width: 6px; }
+            .terminal-body::-webkit-scrollbar-thumb { border-radius: 3px; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 5px; align-items: flex-start; }
+            .terminal {
+                width: 100%;
+                height: 90vh;
+                min-height: 300px;
+                border-radius: 4px;
+            }
+            .terminal-header { padding: 4px 8px; }
+            .terminal-title { font-size: 0.7rem; }
+            .terminal-button { width: 8px; height: 8px; }
+            .terminal-body { padding: 8px; font-size: 0.8rem; }
+            .prompt-user, .prompt-input, p { font-size: 0.8rem; }
+            .hidden-input { height: 0.8em; }
+            .banner-logo { width: 60px; }
+            .command-output { line-height: 1.2; }
+            .terminal-body::-webkit-scrollbar { width: 5px; }
+            .terminal-body::-webkit-scrollbar-thumb { border-radius: 2px; }
+        }
+
+        @media (max-width: 320px) {
+            body { padding: 3px; }
+            .terminal {
+                width: 100%;
+                height: 95vh;
+                min-height: 250px;
+                border-radius: 2px;
+            }
+            .terminal-header { padding: 3px 6px; }
+            .terminal-title { font-size: 0.6rem; }
+            .terminal-button { width: 6px; height: 6px; }
+            .terminal-body { padding: 6px; font-size: 0.7rem; }
+            .prompt-user, .prompt-input, p { font-size: 0.7rem; }
+            .hidden-input { height: 0.7em; }
+            .banner-logo { width: 50px; }
+            .command-output { line-height: 1.1; }
+            .terminal-body::-webkit-scrollbar { width: 4px; }
+            .terminal-body::-webkit-scrollbar-thumb { border-radius: 2px; }
+        }
+    </style>
+</head>
+<body>
     <script>
         // Commands and variables
         const twitter = "https://www.twitter.com/arisksec/";
@@ -533,19 +841,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
     </script>
 
 
 <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
-	   <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
 </body>
-	</html>
+</html>
