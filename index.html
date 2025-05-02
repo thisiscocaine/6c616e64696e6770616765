@@ -1,5 +1,49 @@
 
-	<!DOCTYPE html>
+	
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script>
+
+
+
+<!DOCTYPE html>
 	<html>
   	<head>
 		<!-- Google tag (gtag.js) -->
@@ -84,44 +128,424 @@
 			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 
-    		<div id="terminal">
-      		     <a id="before"></a>
-    		</div>
-    		<div id="command" onclick="$('texter').focus();">
-      		     <textarea
-        	     type="text"
-                     id="texter"
-                     onkeyup="typeIt(this, event)"
-                     onkeydown="typeIt(this, event); 
-                     moveIt(this.value.length, event)"
-                     onkeypress="typeIt(this, event);"
-                     autofocus
-                     ></textarea>
-      		<div id="liner">
-        	     <span id="typer"></span><b class="cursor" id="cursor">█</b>
-      		</div>
-    		</div>
+    		
+    <script>
+        // Commands and variables
+        const twitter = "https://www.twitter.com/arisksec/";
+        const password = "Return";
+        const github = "https://github.com/arisksec/";
+        const email = 'mailto:me@arisksec.com';
+        const blog = "https://blog.aryanaryal.com.np";
+        const resume = "https://resume.aaryan.com.np/";
+        const youtube = "https://www.youtube.com";
+        const linkedin = "https://www.linkedin.com";
+        const instagram = "https://www.instagram.com";
+
+        const whois = [
+            "<br>",
+            "<strong>Greetings, I am Aryan!</strong>",
+            "I am an Application Security Researcher, Bug Bounty Hunter, Hacker, and Web Application Developer.",
+            "My work encompasses the creation of engaging open-source tools, alongside conducting meticulous",
+            "research into web and mobile application security techniques.",
+            "<br>",
+            "Throughout my professional career in security research, I have diligently documented my journey on",
+            "my blog, with the aspiration of enlightening the next generation of hackers and assisting them in",
+            "navigating the intricate realms of security technique development and computer science.",
+            "<br>",
+            "As my online presence expanded, it became evident that transitioning from application security",
+            "research to a full-time Bug Bounty Hunter was a necessary step – a decision I consider to be",
+            "among the most rewarding of my life.",
+            "<br>",
+            "<strong>Decoded w/ Aryan Aryal</strong> remains an ongoing project of mine, and something not widely known,",
+            "unless one is reading this, is that I also have a creative inclination.",
+            "<br>"
+        ];
+
+        const whoami = [
+            "<br>",
+            "The paradox of “Who am I?” is: we never know, but, we constantly find out.",
+            "<br>"
+        ];
+
+        const social = [
+            "<br>",
+            `Twitter      <a href="${twitter}" target="_blank">ariksec</a>`,
+            `Github       <a href="${github}" target="_blank">ariksec</a>`,
+            `Blog         <a href="${blog}" target="_blank">ariksec</a>`,
+            `Resume       <a href="${resume}" target="_blank">ariksec</a>`,
+            "<br>"
+        ];
+
+        const secret = [
+            "<br>",
+            '<span class="command">sudo</span>           Only use if you\'re admin',
+            "<br>"
+        ];
+
+        const projects = [
+            "<br>",
+            "Still curating... most projects are offline, on GitHub, or confidential.",
+            "<br>"
+        ];
+
+        const help = [
+            "<br>",
+		
+	    '<span class="color2">Information Commands:</span>',
+	        '<span class="command">help</span>           You obviously already know what this does',
+            '<span class="command">whois</span>          Who is Aryan?',
+            '<span class="command">whoami</span>         Who are you?',
+	    '<span class="command">projects</span>       View coding projects',
+	    
+	    "<br>",
+	    '<span class="color2">Social Media Commands:</span>',
+            '<span class="command">social</span>         Display social networks',
+            '<span class="command">email</span>          Do not email me',
+            '<span class="command">twitter</span>        Open Twitter',
+            '<span class="command">linkedin</span>       Open LinkedIn',
+            '<span class="command">github</span>         Open GitHub',
+            '<span class="command">resume</span>         Open resume',
+		"<br>",
+        '<span class="color2">Navigation Commands:</span>',
+            '<span class="command">banner</span>         Display the header',
+            '<span class="command">history</span>        View command history',
+		"<br>",
+	    '<span class="color2">Terminal Management Commands:</span>',
+	        '<span class="command">new</span>            Open new terminal',
+            '<span class="command">exit</span>           Close current terminal',
+            '<span class="command">clear</span>          Clear terminal screen',
+            '<span class="command">secret</span>         Find the password',
+
+            
+            "<br>"
+        ];
+
+        const banner = [
+            '<img src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/123852.png" alt="Logo" class="banner-logo">',
+            `<span class="index">ARISKSEC © ${new Date().getFullYear()}</span>`,
+            '<span class="color2">Welcome to my interactive web terminal.</span>',
+            "<span class=\"color2\">For a list of available commands, type</span> <span class=\"command\">'help'</span><span class=\"color2\">.</span>"
+        ];
+
+        // Terminal management
+        let terminalCount = 0;
+        const terminals = new Map();
+
+        class Terminal {
+            constructor(id) {
+                this.id = id;
+                this.element = document.createElement('div');
+                this.element.className = 'terminal';
+                this.element.id = `terminal-${id}`;
+                this.element.style.left = `${50 + id * 20}px`;
+                this.element.style.top = `${50 + id * 20}px`;
+                this.element.style.zIndex = id;
+
+                this.element.innerHTML = `
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <div class="terminal-button button-close"></div>
+                            <div class="terminal-button button-minimize"></div>
+                            <div class="terminal-button button-maximize"></div>
+                        </div>
+                        <div class="terminal-title">arisksec@arisksec: ~</div>
+                    </div>
+                    <div class="terminal-body">
+                        <div class="before"></div>
+                        <div class="liner">
+                            <span class="prompt-user">root@arisksec:~$ </span>
+                            <span class="cursor"></span>
+                            <span class="prompt-input typer"></span>
+                            <textarea class="hidden-input texter"></textarea>
+                        </div>
+                    </div>
+                `;
+
+                this.before = this.element.querySelector('.before');
+                this.liner = this.element.querySelector('.liner');
+                this.command = this.element.querySelector('.typer');
+                this.textarea = this.element.querySelector('.texter');
+                this.terminalBody = this.element.querySelector('.terminal-body');
+                this.cursorElement = this.element.querySelector('.cursor');
+                this.commands = [];
+                this.commandHistoryIndex = 0;
+                this.isMinimized = false;
+                this.isMaximized = false;
+                this.pw = false;
+                this.pwd = false;
+
+                document.body.appendChild(this.element);
+                this.setup();
+                this.loopLines(banner, "", 80);
+                this.textarea.focus();
+            }
+
+            setup() {
+                // Dragging functionality
+                const header = this.element.querySelector('.terminal-header');
+                let isDragging = false;
+                let currentX, currentY;
+
+                header.addEventListener('mousedown', (e) => {
+                    isDragging = true;
+                    currentX = e.clientX - parseInt(this.element.style.left || '0');
+                    currentY = e.clientY - parseInt(this.element.style.top || '0');
+                    this.bringToFront();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging) {
+                        let newX = e.clientX - currentX;
+                        let newY = e.clientY - currentY;
+
+                        const maxX = window.innerWidth - this.element.offsetWidth - 15;
+                        const maxY = window.innerHeight - this.element.offsetHeight - 15;
+                        newX = Math.max(15, Math.min(newX, maxX));
+                        newY = Math.max(15, Math.min(newY, maxY));
+
+                        this.element.style.left = `${newX}px`;
+                        this.element.style.top = `${newY}px`;
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isDragging = false;
+                });
+
+                // Bring to front on click
+                this.element.addEventListener('mousedown', () => this.bringToFront());
+
+                // Button functionality
+                this.element.querySelector('.button-close').addEventListener('click', () => this.close());
+                this.element.querySelector('.button-minimize').addEventListener('click', () => {
+                    this.isMinimized = !this.isMinimized;
+                    this.element.classList.toggle('minimized', this.isMinimized);
+                    if (!this.isMinimized) this.textarea.focus();
+                });
+                this.element.querySelector('.button-maximize').addEventListener('click', () => {
+                    this.isMaximized = !this.isMaximized;
+                    this.element.classList.toggle('maximized', this.isMaximized);
+                    if (!this.isMaximized) {
+                        this.element.style.left = `${50 + this.id * 20}px`;
+                        this.element.style.top = `${50 + this.id * 20}px`;
+                    }
+                    this.textarea.focus();
+                });
+
+                // Input handling
+                this.textarea.addEventListener('input', () => {
+                    if (!this.pw) {
+                        this.command.textContent = this.textarea.value;
+                    } else {
+                        this.command.textContent = '*'.repeat(this.textarea.value.length);
+                    }
+                    this.cursorElement.style.visibility = this.textarea.value.length > 0 ? 'hidden' : 'visible';
+                });
+
+                this.textarea.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.commands.push(this.command.textContent);
+                        this.commandHistoryIndex = this.commands.length;
+                        this.addLine(`root@arisksec:~$ ${this.command.textContent}`, "no-animation", 0);
+                        this.executeCommand(this.command.textContent.toLowerCase());
+                        if (!this.pw) {
+                            this.command.textContent = "";
+                            this.textarea.value = "";
+                            this.cursorElement.style.visibility = 'visible';
+                        }
+                    } else if (e.key === 'ArrowUp' && this.commandHistoryIndex > 0) {
+                        e.preventDefault();
+                        this.commandHistoryIndex--;
+                        this.textarea.value = this.commands[this.commandHistoryIndex] || "";
+                        this.command.textContent = this.textarea.value;
+                        this.cursorElement.style.visibility = this.textarea.value.length > 0 ? 'hidden' : 'visible';
+                    } else if (e.key === 'ArrowDown' && this.commandHistoryIndex < this.commands.length) {
+                        e.preventDefault();
+                        this.commandHistoryIndex++;
+                        if (this.commandHistoryIndex === this.commands.length) {
+                            this.textarea.value = "";
+                            this.command.textContent = "";
+                        } else {
+                            this.textarea.value = this.commands[this.commandHistoryIndex];
+                            this.command.textContent = this.textarea.value;
+                        }
+                        this.cursorElement.style.visibility = this.textarea.value.length > 0 ? 'hidden' : 'visible';
+                    }
+                    this.terminalBody.scrollTop = this.terminalBody.scrollHeight;
+                });
+
+                this.textarea.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter' && this.pw) {
+                        if (this.textarea.value === password) {
+                            this.pwd = true;
+                        }
+                        if (this.pwd) {
+                            this.loopLines(secret, "color2 margin", 120);
+                            this.command.textContent = "";
+                            this.textarea.value = "";
+                            this.pwd = false;
+                            this.pw = false;
+                            this.liner.classList.remove("password");
+                            this.cursorElement.style.visibility = 'visible';
+                        } else {
+                            this.addLine("Wrong password", "error", 0);
+                            this.command.textContent = "";
+                            this.textarea.value = "";
+                            this.pw = false;
+                            this.liner.classList.remove("password");
+                            this.cursorElement.style.visibility = 'visible';
+                        }
+                    }
+                });
+
+                this.terminalBody.addEventListener('click', () => this.textarea.focus());
+            }
+
+            bringToFront() {
+                const maxZ = Math.max(...Array.from(document.querySelectorAll('.terminal')).map(t => parseInt(t.style.zIndex || '0')));
+                this.element.style.zIndex = maxZ + 1;
+            }
+
+            close() {
+                terminals.delete(this.id);
+                this.element.remove();
+                if (terminals.size === 0) {
+                    new Terminal(terminalCount++);
+                }
+            }
+
+            addLine(text, style, time) {
+                let t = "";
+                for (let i = 0; i < text.length; i++) {
+                    if (text.charAt(i) === " " && text.charAt(i + 1) === " ") {
+                        t += "  ";
+                        i++;
+                    } else {
+                        t += text.charAt(i);
+                    }
+                }
+                setTimeout(() => {
+                    const next = document.createElement("p");
+                    next.innerHTML = t;
+                    next.className = style;
+                    this.before.parentNode.insertBefore(next, this.before);
+                    this.terminalBody.scrollTop = this.terminalBody.scrollHeight;
+                }, time);
+            }
+
+            loopLines(lines, style, time) {
+                lines.forEach((item, index) => this.addLine(item, style, index * time));
+            }
+
+            executeCommand(cmd) {
+                switch (cmd) {
+                    case "help":
+                        this.loopLines(help, "color2 margin", 80);
+                        break;
+                    case "whois":
+                        this.loopLines(whois, "color2 margin", 80);
+                        break;
+                    case "whoami":
+                        this.loopLines(whoami, "color2 margin", 80);
+                        break;
+                    case "video":
+                        this.addLine("Opening YouTube...", "color2", 80);
+                        this.newTab(youtube);
+                        break;
+                    case "sudo":
+                        this.addLine("Oh no, you're not admin...", "color2", 80);
+                        setTimeout(() => window.open('https://www.youtube.com/watch?v=sjpWpFLXxso'), 1000);
+                        break;
+                    case "social":
+                        this.loopLines(social, "color2 margin", 80);
+                        break;
+                    case "secret":
+                        this.liner.classList.add("password");
+                        this.pw = true;
+                        break;
+                    case "projects":
+                        this.loopLines(projects, "color2 margin", 80);
+                        break;
+                    case "password":
+                        this.addLine("<span class=\"inherit\"> Lol! You're joking, right? You\'re gonna have to try harder than that!😂</span>", "error", 100);
+                        break;
+                    case "history":
+                        this.addLine("<br>", "", 0);
+                        this.loopLines(this.commands, "color2", 80);
+                        this.addLine("<br>", "command", 80 * this.commands.length + 50);
+                        break;
+                    case "email":
+                        this.addLine('Opening mailto:<a href="me@arisksec.com">me@arisksec.com</a>...', "color2", 80);
+                        this.newTab(email);
+                        break;
+                    case "banner":
+                        this.loopLines(banner, "", 80);
+                        break;
+                    case "resume":
+                        this.addLine("Opening Resume...", "color2", 80);
+                        this.newTab(resume);
+                        break;
+                    
+                    case "twitter":
+                        this.addLine("Opening Twitter...", "color2", 0);
+                        this.newTab(twitter);
+                        break;
+                    case "linkedin":
+                        this.addLine("Opening LinkedIn...", "color2", 0);
+                        this.newTab(linkedin);
+                        break;
+                    
+                    case "github":
+                        this.addLine("Opening GitHub...", "color2", 0);
+                        this.newTab(github);
+                        break;
+                    case "new":
+                        new Terminal(terminalCount++);
+                        break;
+                    case "exit":
+                        this.close();
+                        break;
+                    case "clear":
+                        while (this.before.firstChild) {
+                            this.before.removeChild(this.before.firstChild);
+                        }
+                        break;
+                    default:
+                        this.addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
+                        break;
+                }
+            }
+
+            newTab(link) {
+                setTimeout(() => window.open(link, "_blank"), 500);
+            }
+        }
+
+        // Initialize first terminal
+        terminals.set(terminalCount, new Terminal(terminalCount++));
+
+        window.addEventListener('error', (e) => {
+            console.error('Script Error:', e.message);
+            terminals.forEach(term => term.addLine(`Error: ${e.message}`, "error", 0));
+        });
 
 
-		<script>
-			  // Set cookie securely using Secure and SameSite flags (HttpOnly is server-side only)
-			  document.addEventListener('DOMContentLoaded', function() {
-			    // This cookie will only be sent over HTTPS and will not be sent cross-site
-			    document.cookie = "username=arisksec; Secure; SameSite=Strict";
-			  });
-
-			
-		</script>
 
 
-   	     <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/6361726574.js"
-            	    crossorigin="anonymous"></script>
 
-	    <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/636f6d6d616e6473.js"
-	             crossorigin="anonymous"></script>
-	
-	    <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/6d61696e66.js"
-                    crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+    </script>
+
+
+<script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
 	   <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
 </body>
 	</html>
