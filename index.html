@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
         var gk_isXlsx = false;
         var gk_xlsxFileLookup = {};
@@ -37,38 +38,61 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script><!DOCTYPE html>
+        </script><script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+</script>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TKQ1L43EL"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-6TKQ1L43EL');
-    </script>
-
-    <title>arisksec</title>
-    <meta name="description" content="This is the official website of Aryan 'arisksec' Aryal." />
-    <link rel="canonical" href="https://www.aryanaryal.com.np/">
-    <meta name='robots' content='max-image-preview:large' />
-    <link rel='dns-prefetch' href='//fonts.googleapis.com' />
-    <link rel="shortcut icon" href="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/favicon.png" type="image/x-icon">
-    
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="arisksec" />
-    <meta property="og:title" content="arisksec" />
-    <meta property="og:description" content="This is the official website of Aryan 'arisksec' Aryal." />
-    <meta property="og:image" content="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/black-logo.png" />
-    <meta property="og:url" content="https://www.aryanaryal.com.np/" />
-    <meta name="google-site-verification" content="CeBa50H0CJoDf85vK9KrCwXnKuYMja8Dn9kIkpLAlok" />   
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <script nonce="serverGeneratedNonce">console.log('Secure script execution');</script>	  
-    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/637373/7374796c65.css" />
-    <link rel="icon" type="image/x-icon" href="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/favicon.png" />
+    <meta name="description" content="This is the official website of Aryan 'arisksec' Aryal.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="arisksec">
+    <meta property="og:title" content="arisksec">
+    <meta property="og:description" content="This is the official website of Aryan 'arisksec' Aryal.">
+    <meta property="og:image" content="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/black-logo.png">
+    <meta property="og:url" content="https://www.aryanaryal.com.np/">
+    <link rel="canonical" href="https://www.aryanaryal.com.np/">
+    <link rel="icon" type="image/x-icon" href="https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/favicon.png">
+    <title>arisksec</title>
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -78,35 +102,6 @@
     })(window,document,'script','dataLayer','GTM-5XL9QV7R');</script>
     <!-- End Google Tag Manager -->
 
-    <!-- JSON-LD structured data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "arisksec",
-      "url": "https://www.aryanaryal.com.np",
-      "description": "Official website of Aryan 'arisksec' Aryal.",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Aryan Aryal",
-        "url": "https://www.aryanaryal.com.np",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://cdn.aryanaryal.com.np/626c6f672d617279616e/70686f746f73/6c6f676f73/black-logo.png"
-        }
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.aryanaryal.com.np/?s={search_term_string}",
-        "query-input": "required name=search_term_string"
-      },
-      "sameAs": [
-        "https://www.twitter.com/arisksec/",
-        "https://blog.aryanaryal.com.np/",
-        "https://github.com/arisksec/"
-      ]
-    }
-    </script>
     <style>
         :root {
             --background: #000000;
@@ -114,6 +109,18 @@
             --prompt: #00FF00;
             --accent: #FF0000;
             --header: #D3D3D3;
+            --scrollbar: #555555;
+            --scrollbar-track: #1A1A1A;
+        }
+
+        [data-theme="light"] {
+            --background: #FFFFFF;
+            --text: #000000;
+            --prompt: #008000;
+            --accent: #FF0000;
+            --header: #E0E0E0;
+            --scrollbar: #888888;
+            --scrollbar-track: #F0F0F0;
         }
 
         body {
@@ -124,8 +131,6 @@
             height: 100vh;
             margin: 0;
             padding: 15px;
-            min-height: 99%;
-            width: 100%;
             overflow: auto;
             position: relative;
         }
@@ -137,29 +142,7 @@
             100% { background: linear-gradient(135deg, #1250d4 0%, #8517b4 100%); }
         }
 
-        @keyframes colorSwirl {
-            0% {
-                background: radial-gradient(circle at 10% 20%, #000000 0%, #1a1a2e 50%, #4b0082 100%);
-            }
-            25% {
-                background: radial-gradient(circle at 90% 20%, #1a1a2e 0%, #4b0082 50%, #9400d3 100%);
-            }
-            50% {
-                background: radial-gradient(circle at 50% 80%, #4b0082 0%, #9400d3 50%, #ff1493 100%);
-            }
-            75% {
-                background: radial-gradient(circle at 10% 80%, #9400d3 0%, #ff1493 50%, #ff8c00 100%);
-            }
-            100% {
-                background: radial-gradient(circle at 90% 50%, #ff1493 0%, #ff8c00 50%, #000000 100%);
-            }
-        }
-
         ::selection {
-            color: var(--background);
-            background-color: var(--text);
-        }
-        ::-moz-selection {
             color: var(--background);
             background-color: var(--text);
         }
@@ -202,7 +185,6 @@
             border-top-left-radius: 6px;
             border-top-right-radius: 6px;
             cursor: move;
-            -webkit-user-select: none;
             user-select: none;
         }
 
@@ -271,11 +253,11 @@
         }
 
         .terminal-body::-webkit-scrollbar-track {
-            background: #1A1A1A;
+            background: var(--scrollbar-track);
         }
 
         .terminal-body::-webkit-scrollbar-thumb {
-            background: #555555;
+            background: var(--scrollbar);
             border-radius: 4px;
         }
 
@@ -305,11 +287,6 @@
             vertical-align: middle;
         }
 
-        .cursor-active {
-            background: var(--accent);
-            opacity: 1;
-        }
-
         @keyframes blink {
             50% { opacity: 0; }
         }
@@ -333,23 +310,9 @@
             color: var(--text);
         }
 
-        .cursor {
-            color: var(--accent);
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
         .liner.password::before {
             content: "Password: ";
             color: var(--accent);
-        }
-
-        @keyframes show {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         p {
@@ -370,42 +333,15 @@
             margin-left: 20px;
         }
 
-        .index {
-            color: #00FF00;
-        }
-
-        .color2 {
-            color: #00FFFF;
-        }
-
-        .command {
-            color: #00FFFF;
-        }
-
-        .error {
-            color: var(--accent);
-        }
-
-        .white {
-            color: var(--text);
-        }
-
-        .inherit, a {
-            color: #87CEEB;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        a:hover {
-            background: var(--accent);
-            color: var(--background);
-        }
-
-        a:focus {
-            outline: 0;
-        }
+        .index { color: #00FF00; }
+        .color2 { color: #00FFFF; }
+        .command { color: #00FFFF; }
+        .error { color: var(--accent); }
+        .white { color: var(--text); }
+        .inherit, a { color: #87CEEB; }
+        a { text-decoration: none; }
+        a:hover { background: var(--accent); color: var(--background); }
+        a:focus { outline: 0; }
 
         .banner-logo {
             display: block;
@@ -414,7 +350,23 @@
             height: auto;
         }
 
-        /* Enhanced Responsive Media Queries */
+        /* Minimal resize handle styles to blend with existing design */
+        .resize-handle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--scrollbar);
+            cursor: nwse-resize;
+            z-index: 10;
+        }
+
+        .terminal.maximized .resize-handle {
+            display: none;
+        }
+
+        /* Existing Responsive Media Queries (unchanged) */
         @media (min-width: 3840px) {
             .terminal {
                 max-width: 1200px;
@@ -429,6 +381,7 @@
             .hidden-input { height: 1.5em; }
             .banner-logo { width: 150px; }
             .command-output { line-height: 1.5; }
+            .resize-handle { width: 16px; height: 16px; }
         }
 
         @media (max-width: 1440px) {
@@ -445,6 +398,7 @@
             .hidden-input { height: 1.2em; }
             .banner-logo { width: 100px; }
             .command-output { line-height: 1.4; }
+            .resize-handle { width: 12px; height: 12px; }
         }
 
         @media (max-width: 1024px) {
@@ -455,12 +409,13 @@
             }
             .terminal-header { padding: 6px 12px; }
             .terminal-title { font-size: 0.85rem; }
-            .terminal-button { width: 11px; height: 11px; }
+            .terminal-button { width: 11px; height: 11px }
             .terminal-body { padding: 12px; font-size: 0.95rem; }
             .prompt-user, .prompt-input, p { font-size: 0.95rem; }
             .hidden-input { height: 1.1em; }
             .banner-logo { width: 90px; }
             .command-output { line-height: 1.4; }
+            .resize-handle { width: 12px; height: 12px; }
         }
 
         @media (max-width: 768px) {
@@ -481,6 +436,7 @@
             .command-output { line-height: 1.3; }
             .terminal-body::-webkit-scrollbar { width: 6px; }
             .terminal-body::-webkit-scrollbar-thumb { border-radius: 3px; }
+            .resize-handle { width: 10px; height: 10px; }
         }
 
         @media (max-width: 600px) {
@@ -493,13 +449,14 @@
             }
             .terminal-header { padding: 4px 8px; }
             .terminal-title { font-size: 0.75rem; }
-            .terminal-button { width: 9px; height: 9px; }
+            .terminal-button { width: 9px; drawer: 9px; }
             .terminal-body { padding: 8px; font-size: 0.85rem; }
             .prompt-user, .prompt-input, p { font-size: 0.85rem; }
             .hidden-input { height: 0.9em; }
             .banner-logo { width: 70px; }
             .command-output { line-height: 1.25; }
             .terminal-body::-webkit-scrollbar { width: 5px; }
+            .resize-handle { width: 10px; height: 10px; }
         }
 
         @media (max-width: 480px) {
@@ -520,6 +477,8 @@
             .command-output { line-height: 1.2; }
             .terminal-body::-webkit-scrollbar { width: 5px; }
             .terminal-body::-webkit-scrollbar-thumb { border-radius: 2px; }
+            .command-output { display: flex; flex-direction: column; }
+            .resize-handle { width: 8px; height: 8px; }
         }
 
         @media (max-width: 360px) {
@@ -539,6 +498,7 @@
             .banner-logo { width: 55px; }
             .command-output { line-height: 1.15; }
             .terminal-body::-webkit-scrollbar { width: 4px; }
+            .resize-handle { width: 8px; height: 8px; }
         }
 
         @media (max-width: 320px) {
@@ -559,57 +519,28 @@
             .command-output { line-height: 1.1; }
             .terminal-body::-webkit-scrollbar { width: 4px; }
             .terminal-body::-webkit-scrollbar-thumb { border-radius: 2px; }
+            .resize-handle { width: 8px; height: 8px; }
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5XL9QV7R"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-    </script>
-
     <script>
+        // Simulated file system
+        const fileSystem = {
+            'home': {
+                'readme.txt': 'Welcome to the terminal emulator!',
+                'projects': {
+                    'project1': 'Project 1 description',
+                    'project2': 'Project 2 description'
+                }
+            }
+        };
+
         // Commands and variables
         const twitter = "https://www.twitter.com/arisksec/";
         const password = "Return";
@@ -671,7 +602,7 @@
         const help = [
             "<br>",
             '<span class="color2">Information Commands:</span>',
-            '<span class="command">help</span>           You obviously already know what this does',
+            '<span class="command">help</span>           Displays this help menu',
             '<span class="command">whois</span>          Who is Aryan?',
             '<span class="command">whoami</span>         Who are you?',
             '<span class="command">projects</span>       View coding projects',
@@ -688,12 +619,23 @@
             '<span class="command">banner</span>         Display the header',
             '<span class="command">history</span>        View command history',
             "<br>",
+            '<span class="color2">File System Commands:</span>',
+            '<span class="command">ls</span>             List directory contents',
+            '<span class="command">cd</span>             Change directory',
+            '<span class="command">cat</span>            Display file contents',
+            "<br>",
             '<span class="color2">Terminal Management Commands:</span>',
             '<span class="command">new</span>            Open new terminal',
             '<span class="command">exit</span>           Close current terminal',
             '<span class="command">closeall</span>       Close all terminals',
             '<span class="command">clear</span>          Clear terminal screen',
+            '<span class="command">theme</span>          Switch between dark/light theme',
             '<span class="command">secret</span>         Find the password',
+            "<br>",
+            '<span class="color2">Keyboard Shortcuts:</span>',
+            '<span class="command">Ctrl+T</span>         Open new terminal',
+            '<span class="command">Ctrl+W</span>         Close current terminal',
+            '<span class="command">Ctrl+L</span>         Clear terminal screen',
             "<br>"
         ];
 
@@ -707,6 +649,7 @@
         // Terminal management
         let terminalCount = 0;
         const terminals = new Map();
+        let currentPath = ['home'];
 
         class Terminal {
             constructor(id) {
@@ -717,25 +660,28 @@
                 this.element.style.left = `${50 + id * 20}px`;
                 this.element.style.top = `${50 + id * 20}px`;
                 this.element.style.zIndex = id;
+                this.element.setAttribute('role', 'application');
+                this.element.setAttribute('aria-label', 'Terminal Emulator');
 
                 this.element.innerHTML = `
                     <div class="terminal-header">
                         <div class="terminal-buttons">
-                            <div class="terminal-button button-close"></div>
-                            <div class="terminal-button button-minimize"></div>
-                            <div class="terminal-button button-maximize"></div>
+                            <div class="terminal-button button-close" role="button" aria-label="Close terminal"></div>
+                            <div class="terminal-button button-minimize" role="button" aria-label="Minimize terminal"></div>
+                            <div class="terminal-button button-maximize" role="button" aria-label="Maximize terminal"></div>
                         </div>
-                        <div class="terminal-title">root@scan:~</div>
+                        <div class="terminal-title">root@scan:~$</div>
                     </div>
-                    <div class="terminal-body">
+                    <div class="terminal-body" role="log" aria-live="polite">
                         <div class="before"></div>
                         <div class="liner">
-                            <span class="prompt-user">root@scan:~$ </span>
+                            <span class="prompt-user">root@scan:${currentPath.join('/')}$ </span>
                             <span class="cursor"></span>
                             <span class="prompt-input typer"></span>
-                            <textarea class="hidden-input texter"></textarea>
+                            <textarea class="hidden-input texter" aria-label="Command input"></textarea>
                         </div>
                     </div>
+                    <div class="resize-handle" role="button" aria-label="Resize terminal"></div>
                 `;
 
                 this.before = this.element.querySelector('.before');
@@ -744,8 +690,8 @@
                 this.textarea = this.element.querySelector('.texter');
                 this.terminalBody = this.element.querySelector('.terminal-body');
                 this.cursorElement = this.element.querySelector('.cursor');
-                this.commands = [];
-                this.commandHistoryIndex = 0;
+                this.commands = JSON.parse(localStorage.getItem(`terminal-${id}-history`)) || [];
+                this.commandHistoryIndex = this.commands.length;
                 this.isMinimized = false;
                 this.isMaximized = false;
                 this.pw = false;
@@ -758,12 +704,11 @@
             }
 
             setup() {
-                // Dragging functionality for mouse and touch
+                // Dragging functionality
                 const header = this.element.querySelector('.terminal-header');
                 let isDragging = false;
                 let currentX, currentY;
 
-                // Mouse drag
                 header.addEventListener('mousedown', (e) => {
                     e.preventDefault();
                     isDragging = true;
@@ -776,12 +721,10 @@
                     if (isDragging) {
                         let newX = e.clientX - currentX;
                         let newY = e.clientY - currentY;
-
                         const maxX = window.innerWidth - this.element.offsetWidth - 15;
                         const maxY = window.innerHeight - this.element.offsetHeight - 15;
                         newX = Math.max(15, Math.min(newX, maxX));
                         newY = Math.max(15, Math.min(newY, maxY));
-
                         this.element.style.left = `${newX}px`;
                         this.element.style.top = `${newY}px`;
                     }
@@ -791,7 +734,6 @@
                     isDragging = false;
                 });
 
-                // Touch drag
                 header.addEventListener('touchstart', (e) => {
                     e.preventDefault();
                     isDragging = true;
@@ -806,12 +748,10 @@
                         const touch = e.touches[0];
                         let newX = touch.clientX - currentX;
                         let newY = touch.clientY - currentY;
-
                         const maxX = window.innerWidth - this.element.offsetWidth - 15;
                         const maxY = window.innerHeight - this.element.offsetHeight - 15;
-                        newX = Math.max(15, Math.min(newX, maxX));
+                        newX = Math.max(15, Math.min(newX, maxY));
                         newY = Math.max(15, Math.min(newY, maxY));
-
                         this.element.style.left = `${newX}px`;
                         this.element.style.top = `${newY}px`;
                     }
@@ -821,7 +761,6 @@
                     isDragging = false;
                 });
 
-                // Bring to front on click or touch
                 this.element.addEventListener('mousedown', () => this.bringToFront());
                 this.element.addEventListener('touchstart', () => this.bringToFront());
 
@@ -838,8 +777,75 @@
                     if (!this.isMaximized) {
                         this.element.style.left = `${50 + this.id * 20}px`;
                         this.element.style.top = `${50 + this.id * 20}px`;
+                        this.element.style.width = '';
+                        this.element.style.height = '';
                     }
                     this.textarea.focus();
+                });
+
+                // Resize functionality
+                const resizeHandle = this.element.querySelector('.resize-handle');
+                let isResizing = false;
+                let startX, startY, startWidth, startHeight;
+
+                resizeHandle.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                    if (this.isMaximized) return;
+                    isResizing = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    startWidth = this.element.offsetWidth;
+                    startHeight = this.element.offsetHeight;
+                    this.bringToFront();
+                });
+
+                document.addEventListener('mousemove', (e) => {
+                    if (isResizing) {
+                        const newWidth = startWidth + (e.clientX - startX);
+                        const newHeight = startHeight + (e.clientY - startY);
+                        const minWidth = 300;
+                        const minHeight = 200;
+                        const maxWidth = window.innerWidth - parseInt(this.element.style.left || '0') - 15;
+                        const maxHeight = window.innerHeight - parseInt(this.element.style.top || '0') - 15;
+
+                        this.element.style.width = `${Math.max(minWidth, Math.min(newWidth, maxWidth))}px`;
+                        this.element.style.height = `${Math.max(minHeight, Math.min(newHeight, maxHeight))}px`;
+                    }
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isResizing = false;
+                });
+
+                resizeHandle.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    if (this.isMaximized) return;
+                    isResizing = true;
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                    startWidth = this.element.offsetWidth;
+                    startHeight = this.element.offsetHeight;
+                    this.bringToFront();
+                });
+
+                document.addEventListener('touchmove', (e) => {
+                    if (isResizing) {
+                        const touch = e.touches[0];
+                        const newWidth = startWidth + (touch.clientX - startX);
+                        const newHeight = startHeight + (touch.clientY - startY);
+                        const minWidth = 300;
+                        const minHeight = 200;
+                        const maxWidth = window.innerWidth - parseInt(this.element.style.left || '0') - 15;
+                        const maxHeight = window.innerHeight - parseInt(this.element.style.top || '0') - 15;
+
+                        this.element.style.width = `${Math.max(minWidth, Math.min(newWidth, maxWidth))}px`;
+                        this.element.style.height = `${Math.max(minHeight, Math.min(newHeight, maxHeight))}px`;
+                    }
+                });
+
+                document.addEventListener('touchend', () => {
+                    isResizing = false;
                 });
 
                 // Input handling
@@ -855,14 +861,18 @@
                 this.textarea.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
                         e.preventDefault();
-                        this.commands.push(this.command.textContent);
-                        this.commandHistoryIndex = this.commands.length;
-                        this.addLine(`root@arisksec:~$ ${this.command.textContent}`, "no-animation", 0);
-                        this.executeCommand(this.command.textContent.toLowerCase());
-                        if (!this.pw) {
-                            this.command.textContent = "";
-                            this.textarea.value = "";
-                            this.cursorElement.style.visibility = 'visible';
+                        const commandText = this.textarea.value;
+                        if (commandText) {
+                            this.commands.push(commandText);
+                            localStorage.setItem(`terminal-${this.id}-history`, JSON.stringify(this.commands));
+                            this.commandHistoryIndex = this.commands.length;
+                            this.addLine(`root@scan:${currentPath.join('/')}$ ${commandText}`, "no-animation", 0);
+                            this.executeCommand(commandText.toLowerCase());
+                            if (!this.pw) {
+                                this.command.textContent = "";
+                                this.textarea.value = "";
+                                this.cursorElement.style.visibility = 'visible';
+                            }
                         }
                     } else if (e.key === 'ArrowUp' && this.commandHistoryIndex > 0) {
                         e.preventDefault();
@@ -881,6 +891,15 @@
                             this.command.textContent = this.textarea.value;
                         }
                         this.cursorElement.style.visibility = this.textarea.value.length > 0 ? 'hidden' : 'visible';
+                    } else if (e.ctrlKey && e.key === 't') {
+                        e.preventDefault();
+                        new Terminal(terminalCount++);
+                    } else if (e.ctrlKey && e.key === 'w') {
+                        e.preventDefault();
+                        this.close();
+                    } else if (e.ctrlKey && e.key === 'l') {
+                        e.preventDefault();
+                        this.executeCommand('clear');
                     }
                     this.terminalBody.scrollTop = this.terminalBody.scrollHeight;
                 });
@@ -929,7 +948,7 @@
                 let t = "";
                 for (let i = 0; i < text.length; i++) {
                     if (text.charAt(i) === " " && text.charAt(i + 1) === " ") {
-                        t += "  ";
+                        t += "  ";
                         i++;
                     } else {
                         t += text.charAt(i);
@@ -949,7 +968,8 @@
             }
 
             executeCommand(cmd) {
-                switch (cmd) {
+                const [command, ...args] = cmd.trim().split(' ');
+                switch (command) {
                     case "help":
                         this.loopLines(help, "color2 margin", 80);
                         break;
@@ -1022,10 +1042,65 @@
                             this.before.removeChild(this.before.firstChild);
                         }
                         break;
+                    case "theme":
+                        const currentTheme = document.body.getAttribute('data-theme');
+                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                        document.body.setAttribute('data-theme', newTheme);
+                        this.addLine(`Theme switched to ${newTheme}`, "color2", 0);
+                        break;
+                    case "ls":
+                        const dir = this.getCurrentDir();
+                        const contents = Object.keys(dir).map(item => `<span class="${typeof dir[item] === 'object' ? 'color2' : 'white'}">${item}</span>`);
+                        this.loopLines(contents.length ? contents : ['<span class="white">dir empty</span>'], "margin", 80);
+                        break;
+                    case "cd":
+                        if (args.length === 0) {
+                            currentPath = ['home'];
+                        } else {
+                            const target = args[0];
+                            if (target === '..') {
+                                if (currentPath.length > 1) currentPath.pop();
+                            } else {
+                                const dir = this.getCurrentDir();
+                                if (dir[target] && typeof dir[target] === 'object') {
+                                    currentPath.push(target);
+                                } else {
+                                    this.addLine(`cd: ${target}: No such directory`, "error", 0);
+                                    return;
+                                }
+                            }
+                        }
+                        this.updatePrompt();
+                        break;
+                    case "cat":
+                        if (args.length === 0) {
+                            this.addLine("cat: missing file operand", "error", 0);
+                        } else {
+                            const file = args[0];
+                            const dir = this.getCurrentDir();
+                            if (typeof dir[file] === 'string') {
+                                this.addLine(dir[file], "white", 0);
+                            } else {
+                                this.addLine(`cat: ${file}: No such file or is a directory`, "error", 0);
+                            }
+                        }
+                        break;
                     default:
                         this.addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
                         break;
                 }
+            }
+
+            getCurrentDir() {
+                let dir = fileSystem;
+                for (const part of currentPath) {
+                    dir = dir[part];
+                }
+                return dir;
+            }
+
+            updatePrompt() {
+                this.element.querySelector('.prompt-user').textContent = `root@scan:${currentPath.join('/')}$ `;
             }
 
             closeAll() {
@@ -1048,8 +1123,20 @@
             console.error('Script Error:', e.message);
             terminals.forEach(term => term.addLine(`Error: ${e.message}`, "error", 0));
         });
+
+        // Handle window resize for responsiveness
+        window.addEventListener('resize', () => {
+            terminals.forEach(term => {
+                if (!term.isMaximized) {
+                    const maxWidth = window.innerWidth - parseInt(term.element.style.left || '0') - 15;
+                    const maxHeight = window.innerHeight - parseInt(term.element.style.top || '0') - 15;
+                    term.element.style.width = `${Math.min(term.element.offsetWidth, maxWidth)}px`;
+                    term.element.style.height = `${Math.min(term.element.offsetHeight, maxHeight)}px`;
+                }
+            });
+        });
     </script>
 
-  <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
+</html>  <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
 </body>
 </html>
