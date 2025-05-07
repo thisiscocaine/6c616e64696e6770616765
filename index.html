@@ -1,44 +1,5 @@
 
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -204,7 +165,7 @@
         }
 
         .command-output {
-            margin-bottom: 10px;
+            margin-bottom: 1px;
             line-height: 1.4;
             white-space: pre-wrap;
         }
@@ -278,11 +239,9 @@
 
         p {
             display: block;
-            line-height: 1.3em;
             margin: 0;
             overflow: hidden;
             white-space: pre-wrap;
-            letter-spacing: 0.05em;
             animation: typing 0.5s steps(30, end);
         }
 
@@ -607,7 +566,7 @@
             '<span class="command">twitter</span>        Open Twitter',
             '<span class="command">linkedin</span>       Open LinkedIn',
             '<span class="command">github</span>         Open GitHub',
-            '<span class="command">blog</span>          Open blog',
+            '<span class="command">blog</span>           Open blog',
             '<span class="command">resume</span>         Open resume',
             "<br>",
             '<span class="color2">Navigation Commands:</span>',
@@ -622,7 +581,7 @@
             '<span class="color2">Terminal Management Commands:</span>',
             '<span class="command">new</span>            Open new terminal',
             '<span class="command">exit</span>           Close current terminal',
-            '<span class="command">closeall</span>       Close all terminals',
+            '<span class="command">closeall</span>       Close all terminals except the main one',
             '<span class="command">theme</span>          Switch between dark/light theme',
             '<span class="command">secret</span>         Find the password',
             "<br>"
@@ -930,7 +889,7 @@
                 let t = "";
                 for (let i = 0; i < text.length; i++) {
                     if (text.charAt(i) === " " && text.charAt(i + 1) === " ") {
-                        t += "&nbsp;&nbsp;";
+                        t += "  ";
                         i++;
                     } else {
                         t += text.charAt(i);
@@ -1097,11 +1056,16 @@
             }
 
             closeAll() {
-                terminals.forEach((term, id) => {
-                    term.element.remove();
-                    terminals.delete(id);
+                // Collect all terminal IDs except the main one (ID 0)
+                const terminalIds = Array.from(terminals.keys()).filter(id => id !== 0);
+                // Remove each non-main terminal
+                terminalIds.forEach(id => {
+                    const term = terminals.get(id);
+                    if (term) {
+                        term.element.remove();
+                        terminals.delete(id);
+                    }
                 });
-                new Terminal(terminalCount++);
             }
 
             newTab(link) {
