@@ -169,6 +169,14 @@
             margin-bottom: 1px;
             line-height: 1.4;
             white-space: pre-wrap;
+            overflow-wrap: break-word;
+        }
+
+        .social-output {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
         }
 
         .terminal-body::-webkit-scrollbar {
@@ -419,9 +427,20 @@
             .prompt-user, .prompt-input, p { font-size: 0.85rem; }
             .hidden-input { height: 0.9em; }
             .banner-logo { width: 80px; }
-            .command-output { line-height: 1.25; }
+            .command-output {
+                line-height: 1.25;
+                white-space: normal;
+                word-break: break-all;
+            }
+            .social-output {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 3px;
+            }
+            .margin { margin-left: 10px; }
             .terminal-body::-webkit-scrollbar { width: 5px; }
             .resize-handle { width: 8px; height: 8px; }
+            a:hover { background: transparent; text-decoration: underline; }
         }
 
         /* Smaller mobile devices */
@@ -447,7 +466,17 @@
             .prompt-user, .prompt-input, p { font-size: 0.8rem; }
             .hidden-input { height: 0.8em; }
             .banner-logo { width: 70px; }
-            .command-output { line-height: 1.2; display: flex; flex-direction: column; }
+            .command-output {
+                line-height: 1.2;
+                white-space: normal;
+                word-break: break-all;
+            }
+            .social-output {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            .margin { margin-left: 8px; }
             .terminal-body::-webkit-scrollbar { width: 5px; }
             .terminal-body::-webkit-scrollbar-thumb { border-radius: 2px; }
             .resize-handle { width: 8px; height: 8px; }
@@ -476,7 +505,17 @@
             .prompt-user, .prompt-input, p { font-size: 0.75rem; }
             .hidden-input { height: 0.75em; }
             .banner-logo { width: 60px; }
-            .command-output { line-height: 1.15; }
+            .command-output {
+                line-height: 1.15;
+                white-space: normal;
+                word-break: break-all;
+            }
+            .social-output {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
+            .margin { margin-left: 6px; }
             .terminal-body::-webkit-scrollbar { width: 4px; }
             .resize-handle { width: 7px; height: 7px; }
         }
@@ -504,7 +543,17 @@
             .prompt-user, .prompt-input, p { font-size: 0.7rem; }
             .hidden-input { height: 0.7em; }
             .banner-logo { width: 50px; }
-            .command-output { line-height: 1.1; }
+            .command-output {
+                line-height: 1.1;
+                white-space: normal;
+                word-break: break-all;
+            }
+            .social-output {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1px;
+            }
+            .margin { margin-left: 5px; }
             .terminal-body::-webkit-scrollbar { width: 4px; }
             .terminal-body::-webkit-scrollbar-thumb { border-radius: 2px; }
             .resize-handle { width: 6px; height: 6px; }
@@ -530,10 +579,20 @@
             .terminal-title { font-size: 0.55rem; }
             .terminal-button { width: 5px; height: 5px; }
             .terminal-body { padding: 4px; }
-            .prompt-user, .prompt-input, p { font-size: 0.65rem; }
+            .prompt-user, .prompt-input, p { font-size: 0.55rem; }
             .hidden-input { height: 0.65em; }
             .banner-logo { width: 45px; }
-            .command-output { line-height: 1.05; }
+            .command-output {
+                line-height: 1.05;
+                white-space: normal;
+                word-break: break-all;
+            }
+            .social-output {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1px;
+            }
+            .margin { margin-left: 4px; }
             .terminal-body::-webkit-scrollbar { width: 3px; }
             .resize-handle { width: 5px; height: 5px; }
         }
@@ -561,7 +620,17 @@
             .prompt-user, .prompt-input, p { font-size: 0.6rem; }
             .hidden-input { height: 0.6em; }
             .banner-logo { width: 40px; }
-            .command-output { line-height: 1; }
+            .command-output {
+                line-height: 1;
+                white-space: normal;
+                word-break: break-all;
+            }
+            .social-output {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1px;
+            }
+            .margin { margin-left: 3px; }
             .terminal-body::-webkit-scrollbar { width: 3px; }
             .terminal-body::-webkit-scrollbar-thumb { border-radius: 1px; }
             .resize-handle { width: 4px; height: 4px; }
@@ -660,10 +729,10 @@
 
         const social = [
             "<br>",
-            `Twitter      <a href="${twitter}" target="_blank">arisksec</a>`,
-            `Github       <a href="${github}" target="_blank">arisksec</a>`,
-            `Blog         <a href="${blog}" target="_blank">arisksec</a>`,
-            `Resume       <a href="${resume}" target="_blank">arisksec</a>`,
+            `Twitter: <a href="${twitter}" target="_blank">arisksec</a>`,
+            `Github: <a href="${github}" target="_blank">arisksec</a>`,
+            `Blog: <a href="${blog}" target="_blank">arisksec</a>`,
+            `Resume: <a href="${resume}" target="_blank">arisksec</a>`,
             "<br>"
         ];
 
@@ -681,35 +750,35 @@
 
         const help = [
             "<br>",
-            '<span class="color2">Information Commands:</span>',
-            '<span class="command">help</span>           Displays this help menu',
-            '<span class="command">whois</span>          Who is Aryan?',
-            '<span class="command">whoami</span>         Who are you?',
-            '<span class="command">projects</span>       View coding projects',
+            '<span class="color2">Info Commands:</span>',
+            '<span class="command">help</span>           Shows this menu',
+            '<span class="command">whois</span>          About Aryan',
+            '<span class="command">whoami</span>         About you',
+            '<span class="command">projects</span>       View projects',
             "<br>",
-            '<span class="color2">Social Media Commands:</span>',
-            '<span class="command">social</span>         Display social networks',
-            '<span class="command">email</span>          Do not email me',
+            '<span class="color2">Social Commands:</span>',
+            '<span class="command">social</span>         Social networks',
+            '<span class="command">email</span>          Email contact',
             '<span class="command">twitter</span>        Open Twitter',
             '<span class="command">linkedin</span>       Open LinkedIn',
             '<span class="command">github</span>         Open GitHub',
             '<span class="command">blog</span>           Open blog',
             '<span class="command">resume</span>         Open resume',
             "<br>",
-            '<span class="color2">Navigation Commands:</span>',
-            '<span class="command">banner</span>         Display the header',
-            '<span class="command">history</span>        View command history',
+            '<span class="color2">Navigation:</span>',
+            '<span class="command">banner</span>         Show header',
+            '<span class="command">history</span>        Command history',
             "<br>",
-            '<span class="color2">File System Commands:</span>',
-            '<span class="command">ls</span>             List directory contents',
+            '<span class="color2">File System:</span>',
+            '<span class="command">ls</span>             List contents',
             '<span class="command">cd</span>             Change directory',
-            '<span class="command">cat</span>            Display file contents',
+            '<span class="command">cat</span>            Show file content',
             "<br>",
-            '<span class="color2">Terminal Management Commands:</span>',
-            '<span class="command">new</span>            Open new terminal',
-            '<span class="command">exit</span>           Close current terminal',
-            '<span class="command">theme</span>          Switch between dark/light theme',
-            '<span class="command">secret</span>         Find the password',
+            '<span class="color2">Terminal Mgmt:</span>',
+            '<span class="command">new</span>            New terminal',
+            '<span class="command">exit</span>           Close terminal',
+            '<span class="command">theme</span>          Toggle theme',
+            '<span class="command">secret</span>         Find password',
             "<br>"
         ];
 
@@ -1030,8 +1099,11 @@
                 }, time);
             }
 
-            loopLines(lines, style, time) {
-                lines.forEach((item, index) => this.addLine(item, style, index * time));
+            loopLines(lines, style, time, isSocial = false) {
+                lines.forEach((item, index) => {
+                    const className = isSocial ? `social-output ${style}` : style;
+                    this.addLine(item, className, index * time);
+                });
             }
 
             executeCommand(cmd) {
@@ -1055,7 +1127,7 @@
                         setTimeout(() => window.open('https://www.youtube.com/watch?v=sjpWpFLXxso'), 1000);
                         break;
                     case "social":
-                        this.loopLines(social, "color2 margin", 80);
+                        this.loopLines(social, "color2 margin", 80, true);
                         break;
                     case "secret":
                         this.liner.classList.add("password");
@@ -1203,6 +1275,7 @@
             });
         });
     </script>
+
   <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
 </body>
 </html>
