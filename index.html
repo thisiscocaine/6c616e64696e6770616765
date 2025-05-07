@@ -1140,7 +1140,7 @@
                         break;
                     case "theme":
                         const currentTheme = document.body.getAttribute('data-theme');
-                        const newTheme = currentTheme === 'dark' ? 'Deep Burgundy' : 'dark';
+                        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                         document.body.setAttribute('data-theme', newTheme);
                         this.addLine(`Theme switched to ${newTheme}`, "color2 margin", 0);
                         break;
