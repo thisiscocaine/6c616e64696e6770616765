@@ -172,13 +172,6 @@
             overflow-wrap: break-word;
         }
 
-        .social-output {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            align-items: center;
-        }
-
         .terminal-body::-webkit-scrollbar {
             width: 8px;
         }
@@ -432,11 +425,6 @@
                 white-space: normal;
                 word-break: break-all;
             }
-            .social-output {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 3px;
-            }
             .margin { margin-left: 10px; }
             .terminal-body::-webkit-scrollbar { width: 5px; }
             .resize-handle { width: 8px; height: 8px; }
@@ -470,11 +458,6 @@
                 line-height: 1.2;
                 white-space: normal;
                 word-break: break-all;
-            }
-            .social-output {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 2px;
             }
             .margin { margin-left: 8px; }
             .terminal-body::-webkit-scrollbar { width: 5px; }
@@ -510,11 +493,6 @@
                 white-space: normal;
                 word-break: break-all;
             }
-            .social-output {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 2px;
-            }
             .margin { margin-left: 6px; }
             .terminal-body::-webkit-scrollbar { width: 4px; }
             .resize-handle { width: 7px; height: 7px; }
@@ -548,11 +526,6 @@
                 white-space: normal;
                 word-break: break-all;
             }
-            .social-output {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1px;
-            }
             .margin { margin-left: 5px; }
             .terminal-body::-webkit-scrollbar { width: 4px; }
             .terminal-body::-webkit-scrollbar-thumb { border-radius: 2px; }
@@ -579,18 +552,13 @@
             .terminal-title { font-size: 0.55rem; }
             .terminal-button { width: 5px; height: 5px; }
             .terminal-body { padding: 4px; }
-            .prompt-user, .prompt-input, p { font-size: 0.55rem; }
+            .prompt-user, .prompt-input, p { font-size: 0.65rem; }
             .hidden-input { height: 0.65em; }
             .banner-logo { width: 45px; }
             .command-output {
                 line-height: 1.05;
                 white-space: normal;
                 word-break: break-all;
-            }
-            .social-output {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1px;
             }
             .margin { margin-left: 4px; }
             .terminal-body::-webkit-scrollbar { width: 3px; }
@@ -624,11 +592,6 @@
                 line-height: 1;
                 white-space: normal;
                 word-break: break-all;
-            }
-            .social-output {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1px;
             }
             .margin { margin-left: 3px; }
             .terminal-body::-webkit-scrollbar { width: 3px; }
@@ -728,12 +691,11 @@
         ];
 
         const social = [
-            "<br>",
-            `Twitter: <a href="${twitter}" target="_blank">arisksec</a>`,
-            `Github: <a href="${github}" target="_blank">arisksec</a>`,
-            `Blog: <a href="${blog}" target="_blank">arisksec</a>`,
-            `Resume: <a href="${resume}" target="_blank">arisksec</a>`,
-            "<br>"
+            '<span class="color2">Social Media Links:</span>',
+            `<span class="command">twitter</span>        <a href="${twitter}" target="_blank">arisksec</a>`,
+            `<span class="command">github</span>         <a href="${github}" target="_blank">arisksec</a>`,
+            `<span class="command">blog</span>           <a href="${blog}" target="_blank">arisksec</a>`,
+            `<span class="command">resume</span>         <a href="${resume}" target="_blank">arisksec</a>`
         ];
 
         const secret = [
@@ -833,7 +795,7 @@
                 this.textarea = this.element.querySelector('.texter');
                 this.terminalBody = this.element.querySelector('.terminal-body');
                 this.cursorElement = this.element.querySelector('.cursor');
-                this.commands = JSON.parse(localStorage.getItem(`terminal-${id}-history`)) || [];
+                this.commands = JSON.parse(localStorage.getItem(`terminal-${this.id}-history`)) || [];
                 this.commandHistoryIndex = this.commands.length;
                 this.isMinimized = false;
                 this.isMaximized = false;
@@ -1099,10 +1061,9 @@
                 }, time);
             }
 
-            loopLines(lines, style, time, isSocial = false) {
+            loopLines(lines, style, time) {
                 lines.forEach((item, index) => {
-                    const className = isSocial ? `social-output ${style}` : style;
-                    this.addLine(item, className, index * time);
+                    this.addLine(item, style, index * time);
                 });
             }
 
@@ -1127,7 +1088,7 @@
                         setTimeout(() => window.open('https://www.youtube.com/watch?v=sjpWpFLXxso'), 1000);
                         break;
                     case "social":
-                        this.loopLines(social, "color2 margin", 80, true);
+                        this.loopLines(social, "color2 margin", 80);
                         break;
                     case "secret":
                         this.liner.classList.add("password");
@@ -1168,7 +1129,7 @@
                         this.newTab(github);
                         break;
                     case "blog":
-                        this.addLine("Opening Blog...", "color2 margin", 80);
+                        this.addLine("Open blog", "color2 margin", 80);
                         this.newTab(blog);
                         break;
                     case "new":
@@ -1275,7 +1236,6 @@
             });
         });
     </script>
-
-  <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
+ <script src="https://cdn.aryanaryal.com.np/626c6f672d617279616e/6d61696e/6a73/16234.js"></script>
 </body>
 </html>
