@@ -38,47 +38,7 @@
         }
         return gk_fileData[filename] || "";
         }
-        </script><script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-</script>
-<!DOCTYPE html>
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -246,6 +206,7 @@
         .command-output {
             margin-bottom: 10px;
             line-height: 1.4;
+            white-space: pre-wrap;
         }
 
         .terminal-body::-webkit-scrollbar {
@@ -320,7 +281,7 @@
             line-height: 1.3em;
             margin: 0;
             overflow: hidden;
-            white-space: normal;
+            white-space: pre-wrap;
             letter-spacing: 0.05em;
             animation: typing 0.5s steps(30, end);
         }
@@ -350,7 +311,6 @@
             height: auto;
         }
 
-        /* Minimal resize handle styles to blend with existing design */
         .resize-handle {
             position: absolute;
             bottom: 0;
@@ -366,7 +326,6 @@
             display: none;
         }
 
-        /* Existing Responsive Media Queries (unchanged) */
         @media (min-width: 3840px) {
             .terminal {
                 max-width: 1200px;
@@ -449,7 +408,7 @@
             }
             .terminal-header { padding: 4px 8px; }
             .terminal-title { font-size: 0.75rem; }
-            .terminal-button { width: 9px; drawer: 9px; }
+            .terminal-button { width: 9px; height: 9px; }
             .terminal-body { padding: 8px; font-size: 0.85rem; }
             .prompt-user, .prompt-input, p { font-size: 0.85rem; }
             .hidden-input { height: 0.9em; }
@@ -529,11 +488,46 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script>
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+
+        function filledCell(cell) {
+            return cell !== '' && cell != null;
+        }
+
+        function loadFileData(filename) {
+            if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+                try {
+                    var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                    var firstSheetName = workbook.SheetNames[0];
+                    var worksheet = workbook.Sheets[firstSheetName];
+                    var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                    var filteredData = jsonData.filter(row => row.some(filledCell));
+                    var headerRowIndex = filteredData.findIndex((row, index) =>
+                        row.filter(filledCell).length >= (filteredData[index + 1]?.filter(filledCell).length || 0)
+                    );
+                    if (headerRowIndex === -1 || headerRowIndex > 25) {
+                        headerRowIndex = 0;
+                    }
+                    var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
+                    csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                    return csv;
+                } catch (e) {
+                    console.error(e);
+                    return "";
+                }
+            }
+            return gk_fileData[filename] || "";
+        }
+
         // Simulated file system
         const fileSystem = {
             'home': {
                 'readme.txt': 'Welcome to the terminal emulator!',
+                'data.xlsx': 'base64_encoded_xlsx_data',
                 'projects': {
                     'project1': 'Project 1 description',
                     'project2': 'Project 2 description'
@@ -580,10 +574,10 @@
 
         const social = [
             "<br>",
-            `Twitter      <a href="${twitter}" target="_blank">ariksec</a>`,
-            `Github       <a href="${github}" target="_blank"> ariksec</a>`,
-            `Blog         <a href="${blog}" target="_blank">ariksec</a>`,
-            `Resume       <a href="${resume}" target="_blank"> ariksec</a>`,
+            `Twitter      <a href="${twitter}" target="_blank">arisksec</a>`,
+            `Github       <a href="${github}" target="_blank">arisksec</a>`,
+            `Blog         <a href="${blog}" target="_blank">arisksec</a>`,
+            `Resume       <a href="${resume}" target="_blank">arisksec</a>`,
             "<br>"
         ];
 
@@ -613,6 +607,7 @@
             '<span class="command">twitter</span>        Open Twitter',
             '<span class="command">linkedin</span>       Open LinkedIn',
             '<span class="command">github</span>         Open GitHub',
+            '<span class="command">blog</span>          Open blog',
             '<span class="command">resume</span>         Open resume',
             "<br>",
             '<span class="color2">Navigation Commands:</span>',
@@ -628,14 +623,8 @@
             '<span class="command">new</span>            Open new terminal',
             '<span class="command">exit</span>           Close current terminal',
             '<span class="command">closeall</span>       Close all terminals',
-            '<span class="command">clear</span>          Clear terminal screen',
             '<span class="command">theme</span>          Switch between dark/light theme',
             '<span class="command">secret</span>         Find the password',
-            "<br>",
-            '<span class="color2">Keyboard Shortcuts:</span>',
-            '<span class="command">Ctrl+T</span>         Open new terminal',
-            '<span class="command">Ctrl+W</span>         Close current terminal',
-            '<span class="command">Ctrl+L</span>         Clear terminal screen',
             "<br>"
         ];
 
@@ -711,6 +700,7 @@
 
                 header.addEventListener('mousedown', (e) => {
                     e.preventDefault();
+                    if (this.isMaximized) return;
                     isDragging = true;
                     currentX = e.clientX - parseInt(this.element.style.left || '0');
                     currentY = e.clientY - parseInt(this.element.style.top || '0');
@@ -736,6 +726,7 @@
 
                 header.addEventListener('touchstart', (e) => {
                     e.preventDefault();
+                    if (this.isMaximized) return;
                     isDragging = true;
                     const touch = e.touches[0];
                     currentX = touch.clientX - parseInt(this.element.style.left || '0');
@@ -750,7 +741,7 @@
                         let newY = touch.clientY - currentY;
                         const maxX = window.innerWidth - this.element.offsetWidth - 15;
                         const maxY = window.innerHeight - this.element.offsetHeight - 15;
-                        newX = Math.max(15, Math.min(newX, maxY));
+                        newX = Math.max(15, Math.min(newX, maxX));
                         newY = Math.max(15, Math.min(newY, maxY));
                         this.element.style.left = `${newX}px`;
                         this.element.style.top = `${newY}px`;
@@ -891,15 +882,6 @@
                             this.command.textContent = this.textarea.value;
                         }
                         this.cursorElement.style.visibility = this.textarea.value.length > 0 ? 'hidden' : 'visible';
-                    } else if (e.ctrlKey && e.key === 't') {
-                        e.preventDefault();
-                        new Terminal(terminalCount++);
-                    } else if (e.ctrlKey && e.key === 'w') {
-                        e.preventDefault();
-                        this.close();
-                    } else if (e.ctrlKey && e.key === 'l') {
-                        e.preventDefault();
-                        this.executeCommand('clear');
                     }
                     this.terminalBody.scrollTop = this.terminalBody.scrollHeight;
                 });
@@ -918,7 +900,7 @@
                             this.liner.classList.remove("password");
                             this.cursorElement.style.visibility = 'visible';
                         } else {
-                            this.addLine("Wrong password", "error", 0);
+                            this.addLine("Wrong password", "error margin", 0);
                             this.command.textContent = "";
                             this.textarea.value = "";
                             this.pw = false;
@@ -948,7 +930,7 @@
                 let t = "";
                 for (let i = 0; i < text.length; i++) {
                     if (text.charAt(i) === " " && text.charAt(i + 1) === " ") {
-                        t += "  ";
+                        t += "&nbsp;&nbsp;";
                         i++;
                     } else {
                         t += text.charAt(i);
@@ -957,7 +939,7 @@
                 setTimeout(() => {
                     const next = document.createElement("p");
                     next.innerHTML = t;
-                    next.className = style;
+                    next.className = `command-output ${style}`;
                     this.before.parentNode.insertBefore(next, this.before);
                     this.terminalBody.scrollTop = this.terminalBody.scrollHeight;
                 }, time);
@@ -980,11 +962,11 @@
                         this.loopLines(whoami, "color2 margin", 80);
                         break;
                     case "video":
-                        this.addLine("Opening YouTube...", "color2", 80);
+                        this.addLine("Opening YouTube...", "color2 margin", 80);
                         this.newTab(youtube);
                         break;
                     case "sudo":
-                        this.addLine("Oh no, you're not admin...", "color2", 80);
+                        this.addLine("Oh no, you're not admin...", "color2 margin", 80);
                         setTimeout(() => window.open('https://www.youtube.com/watch?v=sjpWpFLXxso'), 1000);
                         break;
                     case "social":
@@ -998,35 +980,39 @@
                         this.loopLines(projects, "color2 margin", 80);
                         break;
                     case "password":
-                        this.addLine("<span class=\"inherit\"> Lol! You're joking, right? You\'re gonna have to try harder than that!😂</span>", "error", 100);
+                        this.addLine("Lol! You're joking, right? You're gonna have to try harder than that!😂", "error margin", 100);
                         break;
                     case "history":
                         this.addLine("<br>", "", 0);
-                        this.loopLines(this.commands, "color2", 80);
+                        this.loopLines(this.commands, "color2 margin", 80);
                         this.addLine("<br>", "command", 80 * this.commands.length + 50);
                         break;
                     case "email":
-                        this.addLine('Opening mailto:<a href="me@arisksec.com">me@arisksec.com</a>...', "color2", 80);
+                        this.addLine(`Opening mailto: <a href="${email}">me@arisksec.com</a>...`, "color2 margin", 80);
                         this.newTab(email);
                         break;
                     case "banner":
                         this.loopLines(banner, "", 80);
                         break;
                     case "resume":
-                        this.addLine("Opening Resume...", "color2", 80);
+                        this.addLine("Opening Resume...", "color2 margin", 80);
                         this.newTab(resume);
                         break;
                     case "twitter":
-                        this.addLine("Opening Twitter...", "color2", 0);
+                        this.addLine("Opening Twitter...", "color2 margin", 80);
                         this.newTab(twitter);
                         break;
                     case "linkedin":
-                        this.addLine("Opening LinkedIn...", "color2", 0);
+                        this.addLine("Opening LinkedIn...", "color2 margin", 80);
                         this.newTab(linkedin);
                         break;
                     case "github":
-                        this.addLine("Opening GitHub...", "color2", 0);
+                        this.addLine("Opening GitHub...", "color2 margin", 80);
                         this.newTab(github);
+                        break;
+                    case "blog":
+                        this.addLine("Opening Blog...", "color2 margin", 80);
+                        this.newTab(blog);
                         break;
                     case "new":
                         new Terminal(terminalCount++);
@@ -1037,21 +1023,16 @@
                     case "closeall":
                         this.closeAll();
                         break;
-                    case "clear":
-                        while (this.before.firstChild) {
-                            this.before.removeChild(this.before.firstChild);
-                        }
-                        break;
                     case "theme":
                         const currentTheme = document.body.getAttribute('data-theme');
                         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                         document.body.setAttribute('data-theme', newTheme);
-                        this.addLine(`Theme switched to ${newTheme}`, "color2", 0);
+                        this.addLine(`Theme switched to ${newTheme}`, "color2 margin", 0);
                         break;
                     case "ls":
                         const dir = this.getCurrentDir();
                         const contents = Object.keys(dir).map(item => `<span class="${typeof dir[item] === 'object' ? 'color2' : 'white'}">${item}</span>`);
-                        this.loopLines(contents.length ? contents : ['<span class="white">dir empty</span>'], "margin", 80);
+                        this.loopLines(contents.length ? contents : ['<span class="white">dir empty</span>'], "white margin", 80);
                         break;
                     case "cd":
                         if (args.length === 0) {
@@ -1065,7 +1046,7 @@
                                 if (dir[target] && typeof dir[target] === 'object') {
                                     currentPath.push(target);
                                 } else {
-                                    this.addLine(`cd: ${target}: No such directory`, "error", 0);
+                                    this.addLine(`cd: ${target}: No such directory`, "error margin", 0);
                                     return;
                                 }
                             }
@@ -1074,19 +1055,31 @@
                         break;
                     case "cat":
                         if (args.length === 0) {
-                            this.addLine("cat: missing file operand", "error", 0);
+                            this.addLine("cat: missing file operand", "error margin", 0);
                         } else {
                             const file = args[0];
                             const dir = this.getCurrentDir();
                             if (typeof dir[file] === 'string') {
-                                this.addLine(dir[file], "white", 0);
+                                gk_isXlsx = file.endsWith('.xlsx');
+                                if (gk_isXlsx) {
+                                    gk_xlsxFileLookup[file] = true;
+                                    gk_fileData[file] = dir[file];
+                                    const content = loadFileData(file);
+                                    if (content) {
+                                        this.addLine(content, "white margin", 0);
+                                    } else {
+                                        this.addLine(`cat: ${file}: Error reading XLSX file`, "error margin", 0);
+                                    }
+                                } else {
+                                    this.addLine(dir[file], "white margin", 0);
+                                }
                             } else {
-                                this.addLine(`cat: ${file}: No such file or is a directory`, "error", 0);
+                                this.addLine(`cat: ${file}: No such file or is a directory`, "error margin", 0);
                             }
                         }
                         break;
                     default:
-                        this.addLine("<span class=\"inherit\">Command not found. For a list of commands, type <span class=\"command\">'help'</span>.</span>", "error", 100);
+                        this.addLine(`Command not found. For a list of commands, type <span class="command">help</span>.`, "error margin", 100);
                         break;
                 }
             }
@@ -1121,7 +1114,7 @@
 
         window.addEventListener('error', (e) => {
             console.error('Script Error:', e.message);
-            terminals.forEach(term => term.addLine(`Error: ${e.message}`, "error", 0));
+            terminals.forEach(term => term.addLine(`Error: ${e.message}`, "error margin", 0));
         });
 
         // Handle window resize for responsiveness
