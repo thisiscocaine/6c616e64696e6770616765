@@ -1,115 +1,122 @@
 # Cyberattacks: Types, Methods, and Prevention
 
-Every day, people, organizations, and even governments are hit by malware, phishing, DDoS, and countless other types of cyberattacks. And while no one thinks it will happen to them, cyberattacks can be disastrous for anyone.
+Every day, individuals, organizations, and even governments are targeted by malware, phishing, DDoS, and countless other types of cyberattacks. While many believe it won’t happen to them, cyberattacks can be devastating for anyone.
 
-Exposed sensitive information, drained bank accounts, and stolen identities are just a few of the terrifying consequences of a cyberattack. But there are ways you can protect yourself — and knowing what's out there can help you stay safe.
+Exposed sensitive information, drained bank accounts, and stolen identities are just a few of the terrifying consequences. Fortunately, there are ways to protect yourself — and understanding the threats is the first step to staying safe.
+
+![Cyberattack illustration](https://miro.medium.com/v2/resize:fit:720/format:webp/0*AliwF8z8sv53xzxY.jpg)
 
 ---
 
-## 🔐 What is a Cyberattack?
+## 🔐 What Is a Cyberattack?
 
-A **cyberattack** is a broad term that refers to any deliberate assault on computers, devices, networks, or infrastructures. These attacks may be motivated by:
+A **cyberattack** is a deliberate attempt to compromise computers, networks, or digital infrastructures. These attacks may be driven by:
 
 - Financial gain  
 - Revenge  
-- Ideology  
-- Notoriety (especially in high-profile targets)
+- Ideological motives  
+- Notoriety (especially among high-profile targets)
 
-Cyberattacks may come from individuals (like hackers) or organizations, and may target:
+Cyberattacks may originate from:
 
-- People  
-- Businesses  
-- Governments (cyber warfare)
+- Individuals (e.g., hackers)  
+- Criminal organizations  
+- Nation-states (also known as cyber warfare)  
+- Internal actors (e.g., insiders with authorized access)
 
 ---
 
 ## 🧠 Methods of Attack
 
-Before exploring common types, let’s break down **how** cyberattacks are carried out. There are four primary methods:
+Before we explore specific types, it’s important to understand the **methods** used to deliver cyberattacks. They fall into four main categories:
 
 ### 1. Passive Attacks
-Non-disruptive attacks used to secretly collect sensitive information without the victim’s knowledge — e.g., cyber espionage.
+Non-disruptive and stealthy, these attacks aim to collect sensitive data without detection. Often used in cyber espionage.
 
 ### 2. Active Attacks
-Aggressive and disruptive attacks meant to destroy or interfere with devices, networks, or infrastructure.
+These are aggressive, destructive assaults that target systems, networks, or infrastructure with the intent to disrupt or destroy.
 
 ### 3. Insider Attacks
-Attacks by individuals who already have legitimate access to the system (employees, contractors, etc.).
+Initiated by trusted individuals who have legitimate access, such as employees or contractors.
 
 ### 4. Outsider Attacks
-External threats from hackers, cybercriminals, or even foreign governments.
+Conducted by individuals or entities without authorized access — from cybercriminals to hostile states.
+
+![Types of cyberattack methods](https://miro.medium.com/v2/resize:fit:720/format:webp/0*AliwF8z8sv53xzxY.jpg)
 
 ---
 
 ## 🛠️ Hacker Techniques & Common Cyberattacks
 
-Here are the most common cyberattack techniques used in the wild:
+Here are some of the most widely used methods cybercriminals deploy:
 
 ### ✅ DDoS Attack
-**Distributed Denial-of-Service** attacks overwhelm a service or server with fake traffic, making it unavailable for legitimate users.
+A **Distributed Denial-of-Service** attack overwhelms a service, server, or network with traffic from multiple sources, rendering it inaccessible to legitimate users.
 
 ### ✅ Malware
-Malicious software that can steal data, bombard with ads, or lock your files for ransom (ransomware).
+Short for “malicious software,” malware includes viruses, spyware, adware, ransomware, and more. It can steal, damage, or encrypt your data.
 
 ### ✅ Social Engineering
-Tricks users into sharing data or installing malware. Often involves fake emails or websites pretending to be trusted.
+Tricks users into handing over sensitive data or installing malware. Tactics often include phishing emails and fake websites posing as trustworthy sources.
 
 ### ✅ Man-in-the-Middle (MitM)
-An attacker intercepts communication between a user and a service, reading or modifying the data.
+The attacker secretly intercepts communication between two parties and may alter or steal the data in transit.
 
 ### ✅ Zero-Day Exploits
-Takes advantage of newly discovered vulnerabilities before the developer can release a fix.
+Targets unpatched vulnerabilities before the software vendor can issue a fix. These are extremely dangerous.
 
 ### ✅ Dumpster Diving
-Attackers search trash (physical or digital) for documents or data they can exploit.
+Attackers scavenge discarded physical or digital data (like paper files or deleted emails) to extract sensitive information.
 
 ### ✅ Cross-Site Scripting (XSS)
-Injects malicious scripts into trusted websites to steal user data or hijack sessions.
+Malicious scripts are injected into trusted websites to steal login details or session tokens from users.
 
 ### ✅ Password Cracking
-Uses brute-force, dictionary attacks, or rainbow tables to guess and steal passwords.
+Hackers use brute-force attacks, dictionary attacks, or rainbow tables to guess user passwords.
 
 ### ✅ SQL Injection
-Injects malicious SQL code into a database via vulnerable input fields to extract or manipulate data.
+Malicious SQL code is injected into input fields of a vulnerable web app to extract or manipulate database contents.
+
+![Cyberattack infographic](https://miro.medium.com/v2/resize:fit:720/format:webp/0*AliwF8z8sv53xzxY.jpg)
 
 ---
 
 ## 🛡️ How to Prevent Cyber Threats
 
-Cybersecurity is a journey — not a one-time task. Here are actionable tips to protect yourself from cyberattacks:
+Cybersecurity is a continuous process. Here are proven practices to help defend against common threats:
 
 ### 🧰 Use Antivirus Software
-Install trusted antivirus tools. Consider advanced protection like **NordVPN Threat Protection** to:
-- Scan for malware
-- Block trackers and ads
-- Stop you from accessing malicious sites
+Install a reliable antivirus program and consider additional tools like **NordVPN’s Threat Protection** to:
+- Block malware and intrusive ads  
+- Warn you about dangerous websites  
+- Prevent tracking and data collection
 
 ### 🧩 Keep Software Updated
-Install updates regularly. Most updates include **critical security patches**.
+Always install updates. They contain critical security patches for known vulnerabilities.
 
 ### 🚫 Avoid Public Wi-Fi Hotspots
-They're often unsecured and prime targets for attackers.
+Public networks are a common hunting ground for attackers. Avoid them when possible.
 
 ### 🔒 Use a VPN
-Encrypts your connection on public Wi-Fi, preventing eavesdropping.
+A **VPN** encrypts your internet traffic, keeping your data private on any network — especially public Wi-Fi.
 
 ### 🕵️ Limit Personal Info Online
-Avoid sharing sensitive personal details (birthdate, hometown, etc.) which can be used in social engineering attacks.
+Details like your birth date or hometown can help attackers guess passwords or answers to security questions.
 
 ### 🌐 Use Secure Browser Extensions
-Install reputable:
-- Ad blockers
-- Anti-tracking plugins
-- Phishing & malware protection extensions
+Add-ons such as:
+- Ad blockers  
+- Anti-tracking tools  
+- Malware site blockers  
+can significantly improve your browsing safety.
 
-### 📲 Only Download from Trusted Sources
-Use official app stores to avoid trojans or malware-laden apps.
+### 📲 Download Only from Trusted Sources
+Use official app stores (e.g., Google Play, App Store) to avoid trojan-laced or fake apps.
 
 ### ❌ Don’t Click Suspicious Links
-Be skeptical of “too good to be true” offers.  
-**Pro Tip**: Hover over links before clicking to preview their destination.
+If a link looks too good to be true, it probably is.  
+**Tip:** Hover your mouse over a link to preview the real URL before clicking.
 
 ---
 
-> 💡 **Staying safe online is not about paranoia — it’s about awareness. Know the risks. Protect your data. Stay one step ahead.**
-
+> 💡 **Cybersecurity is about awareness, not fear. Stay informed, stay protected, and take control of your digital life.**
